@@ -1,26 +1,23 @@
 package com.mcon521.lockit.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.mcon521.lockit.R;
 import com.mcon521.lockit.databinding.ActivityMainBinding;
 
-import android.view.Menu;
-import android.view.MenuItem;
-
 public class MainActivity extends AppCompatActivity {
 
+    private Button mgen_pass_button;
+    private Snackbar mSnackBar;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -28,19 +25,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        /*Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
-        setSupportActionBar(binding.includeToolbar.toolbar);
+        setupBindingAndToolbar();
+
+        Button mgen_pass_button = findViewById(R.id.gen_pass_button);
 
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        mgen_pass_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                showPasswordGenerator();
             }
         });
+
+    }
+
+
+    private void setupBindingAndToolbar() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.includeToolbar.toolbar);
+
     }
 
     @Override
@@ -63,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*private void dismissSnackBarIfShown() {
+        if (mSnackBar.isShown()) {
+            mSnackBar.dismiss();
+        }
+    }*/
+
+    private void showPasswordGenerator() {
+        /*dismissSnackBarIfShown();*/
+        Intent intent = new Intent(getApplicationContext(), Create_Password.class);
+        /*intent.putExtra("GAME", mGame.getJSONFromCurrentGame());*/
+        startActivity(intent);
     }
 
 

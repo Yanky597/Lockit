@@ -6,8 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <include layout="@layout/main_include_toolbar"
-        android:id="@+id/includeToolbar"/>
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/main_include_toolbar" />
+
 
     <include layout="@layout/landing_page_main" />
 

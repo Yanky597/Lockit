@@ -5,9 +5,12 @@
     <string name="gen_password">Generate Password</string>
     <string name="my_passwords">My Passwords</string>
     <string name="welcome">Welcome User!</string>
+    <string name="password">Password</string>
+    <string name="gen_password_for_fab">Generate Password</string>
 
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="title_activity_password_generator">password_generator</string>
 
 
 </resources>
