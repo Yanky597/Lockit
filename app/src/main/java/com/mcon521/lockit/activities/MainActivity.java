@@ -16,30 +16,39 @@ import com.mcon521.lockit.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mgen_pass_button;
+    private Button mPasswordGenerator, mMyPasswords;
     private Snackbar mSnackBar;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
         setupBindingAndToolbar();
+        setupButtonsAndHandleButtonClicks();
+    }
 
-        Button mgen_pass_button = findViewById(R.id.gen_pass_button);
+    private void setupButtonsAndHandleButtonClicks() {
+        Button mPasswordGenerator = findViewById(R.id.gen_pass_button);
+
+        Button mMyPasswords = findViewById(R.id.my_pass);
+
+        mMyPasswords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMyPasswords();
+            }
+        });
 
 
-        mgen_pass_button.setOnClickListener(new View.OnClickListener() {
+        mPasswordGenerator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPasswordGenerator();
             }
         });
-
     }
 
 
@@ -81,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
     private void showPasswordGenerator() {
         /*dismissSnackBarIfShown();*/
         Intent intent = new Intent(getApplicationContext(), Create_Password.class);
+        /*intent.putExtra("GAME", mGame.getJSONFromCurrentGame());*/
+        startActivity(intent);
+    }
+
+    private void showMyPasswords() {
+        /*dismissSnackBarIfShown();*/
+        Intent intent = new Intent(getApplicationContext(), My_Passwords.class);
         /*intent.putExtra("GAME", mGame.getJSONFromCurrentGame());*/
         startActivity(intent);
     }
