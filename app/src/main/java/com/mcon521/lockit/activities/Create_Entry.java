@@ -133,17 +133,21 @@ public class Create_Entry extends AppCompatActivity {
         // Create an Editor object to write changes to the preferences object above
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(mPassWordList);
-        editor.putString(mMyList, json);
-        editor.apply();
-
+        if (mPassWordList != null){
+            String json = gson.toJson(mPassWordList);
+            editor.putString(mMyList, json);
+            editor.apply();
+        }
     }
 
     public void getPasswordListFromSharedPreferences(){
         SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = preferences.getString(mMyList, mKeyPrefsName );
-        mPassWordList = gson.fromJson(json, Entries.class);
+        if(preferences.contains(mMyList)){
+            String json = preferences.getString(mMyList, mKeyPrefsName );
+            mPassWordList = gson.fromJson(json, Entries.class);
+        }
+
         /*makeAToast();*/
     }
 
