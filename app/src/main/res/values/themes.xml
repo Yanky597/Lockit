@@ -46,5 +46,9 @@
 
     <style name="Theme.Lockit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.Lockit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--    <style name="Theme.Lockit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+    <style name="Theme.Lockit.PopupOverlay">
+        <item name="android:textColor">@color/secondaryColor</item>
+    </style>
+
 </resources>

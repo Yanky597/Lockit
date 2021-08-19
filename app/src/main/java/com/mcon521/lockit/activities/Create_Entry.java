@@ -242,11 +242,23 @@ public class Create_Entry extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        if ( id == android.R.id.home) {
             onBackPressed();
             return true;
-        } else
+
+        }
+        else if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else{
             return super.onOptionsItemSelected(item);
+        }
+
     }
 
 }
+

@@ -13,9 +13,6 @@
         android:id="@+id/createEntry"
         layout="@layout/content_create_entry" />
 
-    <include
-        android:id="@+id/bottomBarNav"
-        layout="@layout/bottom_bar_nav"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -74,14 +74,22 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
         setSupportActionBar(binding.passToolbar.toolbar);
     }
 
+
+
     public void getPasswordListFromSharedPreferences(){
         SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = preferences.getString(mMyList, mKeyPrefsName );
-        mPassWordList = gson.fromJson(json, Entries.class);
-        sortTheList(mPassWordList);
-
+        if(preferences.contains(mMyList)){
+            String json = preferences.getString(mMyList, mKeyPrefsName );
+            mPassWordList = gson.fromJson(json, Entries.class);
+            sortTheList(mPassWordList);
+        }
+        /*makeAToast();*/
     }
+
+
+
+
 
     public void sortTheList(Entries list){
         if(list != null){
