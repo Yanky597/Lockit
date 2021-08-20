@@ -16,46 +16,23 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Utils.setLoginOnOffFromPreferenceValue(getApplicationContext(), getString(R.string.requireLoginKey));
-
-        if(Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))
-            && !Utils.isLoggedIn(getApplicationContext()) && Utils.passwordIsSet(getApplicationContext()).length() == 0 )
-         {
-            splashScreenGoToSetPassword();
-        }
-        else{
-            splashScreenGoToHome();
-        }
+        splashScreenRouter();
 
     }
 
-    private void splashScreenGoToHome() {
+
+    private void goToHome(){
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+    }
+
+
+    private void splashScreenRouter() {
         if (!splashLoaded) {
             setContentView(R.layout.activity_splash);
             int secondsDelayed = 1;
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    finish();
-                }
-            }, secondsDelayed * 500);
-
-            splashLoaded = true;
-        }
-        else {
-            Intent goToMainActivity = new Intent(SplashActivity.this, MainActivity.class);
-            goToMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(goToMainActivity);
-            finish();
-        }
-    }
-
-    private void splashScreenGoToSetPassword() {
-        if (!splashLoaded) {
-            setContentView(R.layout.activity_splash);
-            int secondsDelayed = 1;
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    startActivity(new Intent(SplashActivity.this, SetLoginPassword.class));
+                    goToHome();
                     finish();
                 }
             }, secondsDelayed * 500);
@@ -68,4 +45,5 @@ public class SplashActivity extends Activity {
             finish();
         }
     }
+
 }

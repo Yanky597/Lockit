@@ -70,7 +70,6 @@ public class Create_Password extends AppCompatActivity {
         mdisplay_text = binding.passwordContent.displayText;
         mButtonCopyToClip = binding.passwordContent.copyToClipboard;
         mButtonGoToEntry = binding.passwordContent.saveAndGoToSaveEntry;
-        /*mdisplay_text.setText(getResources().getString(R.string.welcome));*/
     }
 
 

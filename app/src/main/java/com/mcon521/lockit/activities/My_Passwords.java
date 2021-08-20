@@ -90,7 +90,6 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
 
 
 
-
     public void sortTheList(Entries list){
         if(list != null){
             Collections.sort(list.getPasswordList(), (a, b) -> {
@@ -129,13 +128,6 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
             }
         });
 
-       /* mimageButtonMyPasswordList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), My_Passwords.class);
-                startActivity(intent);
-            }
-        });*/
 
     }
 
@@ -152,35 +144,9 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
         startActivity(intent);
 
 
-       /* new AlertDialog.Builder(this)
-                .setTitle(adapter.getItem(position))
-                .setMessage(adapter.userAndPass(position))
-
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
-                .setPositiveButton(getResources().getString(R.string.copyPass), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        setupClipboard(adapter.getPass(position));
-
-                        Snackbar.make(view, "Copied password to clipboard", Snackbar.LENGTH_SHORT)
-                                .setAction("Action", null).show();
-                    }
-                })
-                .setNeutralButton(getResources().getString(R.string.copyUser), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        setupClipboard(adapter.getUSer(position));
-                        Snackbar.make(view, "Copied username to clipboard", Snackbar.LENGTH_SHORT)
-                                .setAction("Action", null).show();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                .setIcon(R.drawable.ic_baseline_lock_24)
-                .show();*/
-
-
     }
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

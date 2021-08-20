@@ -10,9 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lockit">
         <activity
+            android:name=".activities.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Lockit.NoActionBar">
+        </activity>
+        <activity
             android:name=".activities.SetLoginPassword"
             android:label="@string/title_activity_set_login_password"
-            android:theme="@style/Theme.Lockit.NoActionBar"></activity>
+            android:theme="@style/Theme.Lockit.NoActionBar" />
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"

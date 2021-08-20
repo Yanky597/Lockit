@@ -37,19 +37,35 @@ public class Utils {
             myEdit.putString(mLOGINPASSWORD, "");
             myEdit.putBoolean(mISLOGGEDIN, false);
             return loginPreference.getBoolean(loginMode, false);
-
         }
     }
 
-    public static boolean isLoggedIn(Context context){
+    public static void LoggedStatusTrue(Context context){
+        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor myEdit = loginPreference.edit();
+        myEdit.putBoolean(mISLOGGEDIN, true);
+        myEdit.apply();
+    }
+
+    public static void setToLoggedOut(Context context){
+        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor myEdit = loginPreference.edit();
+        myEdit.putBoolean(mISLOGGEDIN, false);
+        myEdit.apply();
+    }
+
+    public static boolean getLoginStatus(Context context){
         SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
         return loginPreference.getBoolean(mISLOGGEDIN, false);
     }
+
 
     public static String passwordIsSet(Context context){
         SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
         return loginPreference.getString(mLOGINPASSWORD, "");
     }
+
+
 
 
 

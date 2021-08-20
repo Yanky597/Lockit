@@ -32,16 +32,23 @@ public class SetLoginPassword extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
-        newPassword = binding.setContentSetLoginPassword.newPassword;
-        confirmPassword = binding.setContentSetLoginPassword.confirmNewPassword;
+        setUpEditTextViews();
 
+        setupFab();
+    }
 
+    private void setupFab() {
         binding.setContentSetLoginPassword.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createNewPassword(view);
             }
         });
+    }
+
+    private void setUpEditTextViews() {
+        newPassword = binding.setContentSetLoginPassword.newPassword;
+        confirmPassword = binding.setContentSetLoginPassword.confirmNewPassword;
     }
 
     private void createNewPassword(View view){

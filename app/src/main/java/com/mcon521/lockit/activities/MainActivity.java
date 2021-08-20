@@ -13,10 +13,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import com.google.android.material.snackbar.Snackbar;
 import com.mcon521.lockit.R;
 import com.mcon521.lockit.databinding.ActivityMainBinding;
+import com.mcon521.lockit.lib.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mPasswordGenerator, mMyPasswords;
+    private Button mPasswordGenerator, mMyPasswords ,mLogout;
     private Snackbar mSnackBar;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -26,14 +27,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sendYouOnYourWay();
         setupBindingAndToolbar();
         setupButtonsAndHandleButtonClicks();
     }
 
     private void setupButtonsAndHandleButtonClicks() {
-        Button mPasswordGenerator = findViewById(R.id.gen_pass_button);
-
-        Button mMyPasswords = findViewById(R.id.my_pass);
+        mPasswordGenerator = findViewById(R.id.gen_pass_button);
+        mMyPasswords = findViewById(R.id.my_pass);
+        mLogout = findViewById(R.id.logout);
 
         mMyPasswords.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
                 showPasswordGenerator();
             }
         });
+
+        mLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
+            }
+        });
     }
 
 
@@ -56,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.includeToolbar.toolbar);
+
 
     }
 
@@ -83,11 +93,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*private void dismissSnackBarIfShown() {
-        if (mSnackBar.isShown()) {
-            mSnackBar.dismiss();
-        }
-    }*/
 
     private void showPasswordGenerator() {
         /*dismissSnackBarIfShown();*/
@@ -97,10 +102,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMyPasswords() {
-        /*dismissSnackBarIfShown();*/
         Intent intent = new Intent(getApplicationContext(), My_Passwords.class);
-        /*intent.putExtra("GAME", mGame.getJSONFromCurrentGame());*/
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sendYouOnYourWay();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!Utils.getLoginStatus(getApplicationContext())){
+            sendYouOnYourWay();
+        }
+
+    }
+
+    private void sendYouOnYourWay() {
+
+        if(Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))
+                && !Utils.getLoginStatus(getApplicationContext()) && Utils.passwordIsSet(getApplicationContext()).length() == 0 )
+        {
+            goToSetLoginPassword();
+        }
+        else if ((Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))
+                && !Utils.getLoginStatus(getApplicationContext()) && Utils.passwordIsSet(getApplicationContext()).length() > 0 )){
+            goToLogin();
+        }
+
+    }
+
+    private void logOut(){
+        if(Utils.getLoginStatus(this) && Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))){
+            Utils.setToLoggedOut(this);
+            goToLogin();
+        }
+    }
+
+
+    private void goToSetLoginPassword(){
+        startActivity(new Intent(this, SetLoginPassword.class));
+    }
+
+    private void goToLogin(){
+
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
 
