@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -138,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
     private void logOut(){
         if(Utils.getLoginStatus(this) && Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))){
             Utils.setToLoggedOut(this);
+//            finish();
+            Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show();
             goToLogin();
         }
     }

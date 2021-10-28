@@ -76,7 +76,7 @@ public class SetLoginPassword extends AppCompatActivity {
 
 // Storing the key and its value as the data fetched from edittext
         myEdit.putString(placeToSave, password);
-        myEdit.putBoolean(mISLOGGEDIN, false);
+        myEdit.putBoolean(mISLOGGEDIN, true);
         myEdit.commit();
     }
 

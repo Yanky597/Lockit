@@ -37,12 +37,17 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
 
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
 
-        private void sendToMainActivity(boolean enteredPassword, View view) {
+    private void sendToMainActivity(boolean enteredPassword, View view) {
             if (enteredPassword) {
                 Utils.LoggedStatusTrue(this);
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+//                super.onBackPressed();
             }
             else{
                 Snackbar.make(view, "Password is incorrect", Snackbar.LENGTH_SHORT)

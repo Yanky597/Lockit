@@ -146,6 +146,11 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
 
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

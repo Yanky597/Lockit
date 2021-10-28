@@ -84,6 +84,12 @@ public class EdityEntry extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        goToPasswordList();
+    }
+
     public void deleteAnEntry(){
         mDeleteEntry.setOnClickListener(new View.OnClickListener() {
             @Override
