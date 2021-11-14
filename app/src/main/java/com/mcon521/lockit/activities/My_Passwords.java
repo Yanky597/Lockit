@@ -23,6 +23,8 @@ import com.mcon521.lockit.classes.Entries;
 import com.mcon521.lockit.classes.PasswordAdapater;
 import com.mcon521.lockit.databinding.ActivityMyPasswordsBinding;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 
 public class My_Passwords extends AppCompatActivity implements PasswordAdapater.ItemClickListener {
@@ -40,7 +42,13 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPasswordListFromSharedPreferences();
+        try {
+            getPasswordListFromSharedPreferences();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setupBindingAndToolbar();
 
         setupRecyclerView();
@@ -76,8 +84,20 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
 
 
 
-    public void getPasswordListFromSharedPreferences(){
+    public void getPasswordListFromSharedPreferences() throws GeneralSecurityException, IOException {
         SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+
+//        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+//
+//
+//        SharedPreferences preferences = EncryptedSharedPreferences.create(
+//                mKeyPrefsName,
+//                masterKeyAlias,
+//                getApplicationContext(),
+//                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+//                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+//        );
+
         Gson gson = new Gson();
         if(preferences.contains(mMyList)){
             String json = preferences.getString(mMyList, mKeyPrefsName );

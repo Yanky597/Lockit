@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,6 +25,9 @@ import com.mcon521.lockit.R;
 import com.mcon521.lockit.classes.Entries;
 import com.mcon521.lockit.classes.Entry;
 import com.mcon521.lockit.databinding.ActivityCreateEntryBinding;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 
 public class Create_Entry extends AppCompatActivity {
@@ -75,14 +80,26 @@ public class Create_Entry extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        saveToSharedPref();
+        try {
+            saveToSharedPref();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @Override
     protected void onSaveInstanceState(@NonNull  Bundle outState) {
         super.onSaveInstanceState(outState);
-        saveToSharedPref();
+        try {
+            saveToSharedPref();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void wireUpTheBottomNavBar() {
@@ -125,10 +142,23 @@ public class Create_Entry extends AppCompatActivity {
     }
 
     /*This is for when the activity is over*/
-    private void saveToSharedPref() {
+    private void saveToSharedPref() throws GeneralSecurityException, IOException {
         // Create a SP reference to the prefs file on the device whose name matches mKeyPrefsName
         // If the file on the device does not yet exist, then it will be created
-        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mKeyPrefsName,
+                masterKeyAlias,
+                getApplicationContext(),
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
+        // used this when it was not encrypted
+//        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
 
         // Create an Editor object to write changes to the preferences object above
         SharedPreferences.Editor editor = preferences.edit();
@@ -157,7 +187,13 @@ public class Create_Entry extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(checkTextFields()){
-                    saveToSharedPref();
+                    try {
+                        saveToSharedPref();
+                    } catch (GeneralSecurityException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Snackbar.make(view, "Entry Added!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     goToPasswordList();

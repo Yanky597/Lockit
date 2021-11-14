@@ -10,9 +10,14 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.preference.PreferenceManager;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.mcon521.lockit.databinding.ActivitySetLoginPasswordBinding;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class SetLoginPassword extends AppCompatActivity {
 
@@ -37,11 +42,17 @@ public class SetLoginPassword extends AppCompatActivity {
         setupFab();
     }
 
-    private void setupFab() {
+    private void setupFab()  {
         binding.setContentSetLoginPassword.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNewPassword(view);
+                try {
+                    createNewPassword(view);
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -51,7 +62,7 @@ public class SetLoginPassword extends AppCompatActivity {
         confirmPassword = binding.setContentSetLoginPassword.confirmNewPassword;
     }
 
-    private void createNewPassword(View view){
+    private void createNewPassword(View view) throws GeneralSecurityException, IOException {
         if(newPassword.getText().toString().equals(confirmPassword.getText().toString()) && newPassword.getText().length() > 3){
             setLoginPasswordInsharedPreferences(getApplicationContext(),newPassword.getText().toString(), mLOGINPASSWORD);
             Snackbar.make(view, "Your Password Has Been Set", Snackbar.LENGTH_SHORT)
@@ -70,7 +81,21 @@ public class SetLoginPassword extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setLoginPasswordInsharedPreferences(Context context, String password, String placeToSave) {
+    private void setLoginPasswordInsharedPreferences(Context context, String password, String placeToSave) throws GeneralSecurityException, IOException {
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+
+        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                placeToSave,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
+        // use the shared preferences and editor as you normally would
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor myEdit = loginPreference.edit();
 
