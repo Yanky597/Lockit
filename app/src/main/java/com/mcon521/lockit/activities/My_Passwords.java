@@ -15,11 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.mcon521.lockit.R;
 import com.mcon521.lockit.classes.Entries;
+import com.mcon521.lockit.classes.Entry;
 import com.mcon521.lockit.classes.PasswordAdapater;
 import com.mcon521.lockit.databinding.ActivityMyPasswordsBinding;
 
@@ -32,9 +35,11 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
     private AppBarConfiguration appBarConfiguration;
     private ActivityMyPasswordsBinding binding;
     public Entries mPassWordList;
+    public Entries mEmptyList;
     ImageButton mimageButtonHome, mimageButtonCreatePassword,mimageButtonMyPasswordList;
 
-    private final String mMyList = "MYLIST";
+    //    private final String mMyList = "MYLIST";
+    private final String mMyList = "PASSLIST";
     private final String mKeyPrefsName = "MYPASSWORDLIST";
 
     PasswordAdapater adapter;
@@ -71,8 +76,17 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.myPasswordsListContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PasswordAdapater(this, mPassWordList.getPasswordList());
-        adapter.setClickListener(this);
+
+        if(mPassWordList == null){
+            mEmptyList = new Entries();
+            Entry placeHolderForEmptyList = new Entry("The list is empty", "", "");
+            mEmptyList.addEntryToList(placeHolderForEmptyList);
+            adapter = new PasswordAdapater(this, mEmptyList.getPasswordList());
+        }
+        else{
+            adapter = new PasswordAdapater(this, mPassWordList.getPasswordList());
+            adapter.setClickListener(this);
+        }
         recyclerView.setAdapter(adapter);
     }
 
@@ -85,18 +99,18 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
 
 
     public void getPasswordListFromSharedPreferences() throws GeneralSecurityException, IOException {
-        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+//        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
 
-//        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-//
-//
-//        SharedPreferences preferences = EncryptedSharedPreferences.create(
-//                mKeyPrefsName,
-//                masterKeyAlias,
-//                getApplicationContext(),
-//                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-//                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-//        );
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mKeyPrefsName,
+                masterKeyAlias,
+                getApplicationContext(),
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
 
         Gson gson = new Gson();
         if(preferences.contains(mMyList)){

@@ -7,14 +7,18 @@ public class Entry extends Entries{
     protected String site;
     protected String username;
     protected String password;
+    protected String message;
 
     public Entry(String site, String username, String password) {
         this.site = site.toUpperCase();
         this.username = username;
         this.password = password;
 //        password = newPassword();
-
     }
+
+//    public Entry(String message){
+//        this.message = message;
+//    }
 
     private String newPassword() {
         Password pass = new Password();

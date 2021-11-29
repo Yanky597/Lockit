@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -22,6 +24,9 @@ import com.mcon521.lockit.R;
 import com.mcon521.lockit.classes.Entries;
 import com.mcon521.lockit.classes.Entry;
 import com.mcon521.lockit.databinding.ActivityEdityEntryBinding;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class EdityEntry extends AppCompatActivity {
 
@@ -31,7 +36,8 @@ public class EdityEntry extends AppCompatActivity {
     ImageButton mbackButton, mCopyTitle,mCopyUser, mCopyPass, mDeleteEntry, mSaveEdit;
     EditText mEditTitle, mEditUser, mEditPassword;
     public Entries mPassWordList;
-    private final String mMyList = "MYLIST";
+//    private final String mMyList = "MYLIST";
+    private final String mMyList = "PASSLIST";
     private final String mKeyPrefsName = "MYPASSWORDLIST";
 
     ActivityEdityEntryBinding binding;
@@ -42,7 +48,13 @@ public class EdityEntry extends AppCompatActivity {
         setContentView(R.layout.activity_edity_entry);
         binding = ActivityEdityEntryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getPasswordListFromSharedPreferences();
+        try {
+            getPasswordListFromSharedPreferences();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setUpButtonsAndViews();
         getContentFromEntry();
         setEditTextViews();
@@ -53,12 +65,29 @@ public class EdityEntry extends AppCompatActivity {
 
     }
 
-    public void getPasswordListFromSharedPreferences(){
-        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+    public void getPasswordListFromSharedPreferences() throws GeneralSecurityException, IOException {
+ /*       SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString(mMyList, mKeyPrefsName );
         mPassWordList = gson.fromJson(json, Entries.class);
-//        sortTheList(mPassWordList);
+//        sortTheList(mPassWordList);*/
+
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mKeyPrefsName,
+                masterKeyAlias,
+                getApplicationContext(),
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
+        Gson gson = new Gson();
+        if(preferences.contains(mMyList)){
+            String json = preferences.getString(mMyList, mKeyPrefsName );
+            mPassWordList = gson.fromJson(json, Entries.class);
+        }
 
     }
 
@@ -78,7 +107,13 @@ public class EdityEntry extends AppCompatActivity {
         mbackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToSharedPref();
+                try {
+                    saveToSharedPref();
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 goToPasswordList();
             }
         });
@@ -105,8 +140,14 @@ public class EdityEntry extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                deleteTheEntry();
-                               saveToSharedPref();
-                               goToPasswordList();
+                                try {
+                                    saveToSharedPref();
+                                } catch (GeneralSecurityException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                goToPasswordList();
 
                             }
                         })
@@ -119,7 +160,7 @@ public class EdityEntry extends AppCompatActivity {
     }
 
     public void deleteTheEntry(){
-        mPassWordList.delteAPassword(Title);
+        mPassWordList.deleteAPassword(Title);
     }
 
 
@@ -136,7 +177,13 @@ public class EdityEntry extends AppCompatActivity {
                         // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                checkTextFields();
+                                try {
+                                    checkTextFields();
+                                } catch (GeneralSecurityException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
 
 
                             }
@@ -195,7 +242,7 @@ public class EdityEntry extends AppCompatActivity {
 
 
     /*a method for editing the current users info*/
-    private boolean checkTextFields(){
+    private boolean checkTextFields() throws GeneralSecurityException, IOException {
 
         String title = mEditTitle.getText().toString().toUpperCase();
         String user = mEditUser.getText().toString();
@@ -236,13 +283,25 @@ public class EdityEntry extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getPasswordListFromSharedPreferences();
+        try {
+            getPasswordListFromSharedPreferences();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        saveToSharedPref();
+        try {
+            saveToSharedPref();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -261,10 +320,21 @@ public class EdityEntry extends AppCompatActivity {
         }
     }
 
-    private void saveToSharedPref() {
+    private void saveToSharedPref() throws GeneralSecurityException, IOException {
         // Create a SP reference to the prefs file on the device whose name matches mKeyPrefsName
         // If the file on the device does not yet exist, then it will be created
-        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+//        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mKeyPrefsName,
+                masterKeyAlias,
+                getApplicationContext(),
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
 
         // Create an Editor object to write changes to the preferences object above
         SharedPreferences.Editor editor = preferences.edit();

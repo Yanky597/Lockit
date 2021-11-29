@@ -25,7 +25,7 @@ public class Entries {
 
 
     /*delete password from list*/
-    public boolean delteAPassword(String title){
+    public boolean deleteAPassword(String title){
 
         if (passwordList.size() > 0){
             for(int i = 0; i <passwordList.size(); i++ ){

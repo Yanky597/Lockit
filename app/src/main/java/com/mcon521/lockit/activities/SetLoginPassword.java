@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.preference.PreferenceManager;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
@@ -96,13 +95,14 @@ public class SetLoginPassword extends AppCompatActivity {
         // use the shared preferences and editor as you normally would
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor myEdit = loginPreference.edit();
+//        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor myEdit = loginPreference.edit();
+//        SharedPreferences.Editor myEdit = loginPreference.edit();
 
 // Storing the key and its value as the data fetched from edittext
-        myEdit.putString(placeToSave, password);
-        myEdit.putBoolean(mISLOGGEDIN, true);
-        myEdit.commit();
+        editor.putString(placeToSave, password);
+        editor.putBoolean(mISLOGGEDIN, true);
+        editor.commit();
     }
 
 }

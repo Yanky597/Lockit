@@ -6,15 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/Theme.Lockit.AppBarOverlay"
+    android:theme="@style/Theme.Lockit.NoActionBar"
     tools:showIn="@layout/activity_create_entry">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:titleTextColor="@color/secondaryColor"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/Theme.Lockit.PopupOverlay" />
+        android:background="@color/primaryColor"
+        app:popupTheme="@style/Theme.Lockit.PopupOverlay"
+        app:titleTextColor="@color/secondaryColor" />
 
 </com.google.android.material.appbar.AppBarLayout>

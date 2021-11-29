@@ -41,7 +41,10 @@ public class Create_Entry extends AppCompatActivity {
     String password;
     private AppBarConfiguration appBarConfiguration;
     private ActivityCreateEntryBinding binding;
-    private final String mMyList = "MYLIST";
+
+    //    private final String mMyList = "MYLIST";
+    private final String mMyList = "PASSLIST";
+
     private final String mKeyPrefsName = "MYPASSWORDLIST";
 
 
@@ -54,7 +57,13 @@ public class Create_Entry extends AppCompatActivity {
             mPassWordList = new Entries();
         }
         setupBindingAndToolbar();
-        getPasswordListFromSharedPreferences();
+        try {
+            getPasswordListFromSharedPreferences();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         getPasswordFromCreatePasswordClass();
         setupViews();
         setupFab();
@@ -73,7 +82,13 @@ public class Create_Entry extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getPasswordListFromSharedPreferences();
+        try {
+            getPasswordListFromSharedPreferences();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -170,15 +185,32 @@ public class Create_Entry extends AppCompatActivity {
         }
     }
 
-    public void getPasswordListFromSharedPreferences(){
-        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+    public void getPasswordListFromSharedPreferences() throws GeneralSecurityException, IOException {
+       /* SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
+        Gson gson = new Gson();
+        if(preferences.contains(mMyList)){
+            String json = preferences.getString(mMyList, mKeyPrefsName );
+            mPassWordList = gson.fromJson(json, Entries.class);
+        }*/
+
+        /*makeAToast();*/
+
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mKeyPrefsName,
+                masterKeyAlias,
+                getApplicationContext(),
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
         Gson gson = new Gson();
         if(preferences.contains(mMyList)){
             String json = preferences.getString(mMyList, mKeyPrefsName );
             mPassWordList = gson.fromJson(json, Entries.class);
         }
-
-        /*makeAToast();*/
     }
 
     private void setupFab() {
