@@ -12,6 +12,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.mcon521.lockit.databinding.ActivityLoginBinding;
 import com.mcon521.lockit.lib.Utils;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText mLoginPassword;
@@ -32,7 +35,13 @@ public class LoginActivity extends AppCompatActivity {
             binding.loginContent.fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    sendToMainActivity(checkPassword(), view);
+                    try {
+                        sendToMainActivity(checkPassword(), view);
+                    } catch (GeneralSecurityException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 };
             });
         }
@@ -42,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         this.finishAffinity();
     }
 
-    private void sendToMainActivity(boolean enteredPassword, View view) {
+    private void sendToMainActivity(boolean enteredPassword, View view) throws GeneralSecurityException, IOException {
             if (enteredPassword) {
                 Utils.LoggedStatusTrue(this);
                 Intent intent = new Intent(this, MainActivity.class);
@@ -55,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
-        private boolean checkPassword() {
+        private boolean checkPassword() throws GeneralSecurityException, IOException {
             String password = mLoginPassword.getText().toString();
             String storedPassword = Utils.passwordIsSet(getApplicationContext());
 

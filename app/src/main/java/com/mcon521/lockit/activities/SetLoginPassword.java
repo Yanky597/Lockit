@@ -9,8 +9,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKeys;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.mcon521.lockit.databinding.ActivitySetLoginPasswordBinding;
@@ -81,23 +80,23 @@ public class SetLoginPassword extends AppCompatActivity {
     }
 
     private void setLoginPasswordInsharedPreferences(Context context, String password, String placeToSave) throws GeneralSecurityException, IOException {
-        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-
-
-        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                placeToSave,
-                masterKeyAlias,
-                context,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        );
+//        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+//
+//
+//        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+//                placeToSave,
+//                masterKeyAlias,
+//                context,
+//                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+//                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+//        );
 
         // use the shared preferences and editor as you normally would
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-//        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
-//        SharedPreferences.Editor myEdit = loginPreference.edit();
-//        SharedPreferences.Editor myEdit = loginPreference.edit();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
 // Storing the key and its value as the data fetched from edittext
         editor.putString(placeToSave, password);
