@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2155" />
+        <entry key="app/src/main/res/drawable/ic_baseline_view_list_24.xml" value="0.2155" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.242" />
+        <entry key="app/src/main/res/layout/activity_create_entry.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_create_password.xml" value="0.30052083333333335" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.34921959033910777" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1621376811594203" />
+        <entry key="app/src/main/res/layout/activity_my_passwords.xml" value="0.3842147827148437" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1621376811594203" />
+        <entry key="app/src/main/res/layout/bottom_bar_nav.xml" value="0.1634963768115942" />
+        <entry key="app/src/main/res/layout/content_create_entry.xml" value="0.21633451157721925" />
+        <entry key="app/src/main/res/layout/content_login.xml" value="0.2637847679248754" />
+        <entry key="app/src/main/res/layout/content_my_passwords.xml" value="0.18704710144927536" />
+        <entry key="app/src/main/res/layout/content_set_login_password.xml" value="0.18704710144927536" />
+        <entry key="app/src/main/res/layout/create_entry_toolbar.xml" value="0.18704710144927536" />
+        <entry key="app/src/main/res/layout/create_password_content.xml" value="0.18704710144927536" />
+        <entry key="app/src/main/res/layout/edit_entry_content.xml" value="0.27649078369140623" />
+        <entry key="app/src/main/res/layout/individual_password_entry.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/landing_page_main.xml" value="0.21165161132812502" />
+        <entry key="app/src/main/res/layout/main_include_toolbar.xml" value="0.2595108695652174" />
+        <entry key="app/src/main/res/layout/my_passwords_toolbar.xml" value="0.18704710144927536" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.242" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2155" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

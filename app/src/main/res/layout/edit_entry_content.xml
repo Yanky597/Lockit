@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondaryDarkColor">
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="88dp"
+        android:layout_height="67dp"
+        android:background="@color/primaryDarkColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+
+    <TextView
+        android:id="@+id/Title_text_editpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="@string/entry_title"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/headingTextSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/titleEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/primaryDarkColor"
+        android:orientation="horizontal"
+        android:padding="@dimen/fab_margin"
+        app:layout_constraintTop_toBottomOf="@id/Title_text_editpage"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".85"
+            android:backgroundTint="@color/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
+
+            />
+
+        <ImageButton
+            android:id="@+id/copyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_baseline_assignment_24" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/user_text_editpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="@string/user"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/headingTextSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleEdit" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/user_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/primaryDarkColor"
+        android:orientation="horizontal"
+        android:padding="@dimen/fab_margin"
+        app:layout_constraintTop_toBottomOf="@id/user_text_editpage"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <EditText
+            android:id="@+id/editUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.85"
+            android:backgroundTint="@color/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
+
+            />
+
+        <ImageButton
+            android:id="@+id/copyUser"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_baseline_assignment_24" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+
+        android:id="@+id/pass_text_editpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="@string/password"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/headingTextSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_edit" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/edit_password_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/primaryDarkColor"
+        android:orientation="horizontal"
+        android:padding="@dimen/fab_margin"
+        app:layout_constraintTop_toBottomOf="@id/pass_text_editpage"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <EditText
+            android:id="@+id/editPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.85"
+            android:backgroundTint="@color/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
+
+            />
+
+        <ImageButton
+            android:id="@+id/copyPass"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_baseline_assignment_24" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/button_container_edit_entry_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/primaryDarkColor"
+        app:layout_constraintTop_toBottomOf="@+id/edit_password_container">
+
+        <ImageButton
+            android:id="@+id/deleteEntry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_weight="0.33"
+            android:padding="5dp"
+            android:background="@color/secondaryColor"
+            android:elevation="10dp"
+            app:srcCompat="@drawable/ic_baseline_delete_24" />
+
+        <ImageButton
+            android:id="@+id/updateContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_weight="0.33"
+            android:padding="5dp"
+            android:background="@color/secondaryColor"
+            android:elevation="10dp"
+            app:srcCompat="@drawable/ic_baseline_check_box_24" />
+
+        <ImageButton
+            android:id="@+id/sharePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_weight="0.33"
+            android:background="@color/secondaryColor"
+            android:elevation="10dp"
+            android:padding="5dp"
+            app:srcCompat="?attr/actionModeShareDrawable"
+            app:tint="#587E8D" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

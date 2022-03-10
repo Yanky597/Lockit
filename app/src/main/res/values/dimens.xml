@@ -1,4 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="button_text_padding">24dp</dimen>
+    <dimen name="headingTextSize">25sp</dimen>
+    <dimen name="splashScreenTextSize">55sp</dimen>
+    <dimen name="copyButtonWidth">10dp</dimen>
+    <dimen name="margin_top_create_entry">70dp</dimen>
+    <dimen name="passwordButtonsMargins">30dp</dimen>
+
 </resources>

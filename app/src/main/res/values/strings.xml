@@ -4,13 +4,62 @@
     <!-- Strings used for fragments for navigation -->
     <string name="gen_password">Generate Password</string>
     <string name="my_passwords">My Passwords</string>
-    <string name="welcome">Welcome User!</string>
-    <string name="password">Password</string>
+    <string name="welcome">Welcome!</string>
     <string name="gen_password_for_fab">Generate Password</string>
+
+    <string name="copy_to_clip">Copy To Clipboard</string>
+    <string name="copied_to_clip">Password has been copied to clipboard</string>
+    <string name="save_entry">Save Password</string>
 
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
+    <!--Used for the main activity-->
     <string name="title_activity_password_generator">password_generator</string>
+    <string name="title_activity_create_entry">Create_Entry</string>
+
+    <!--Used in the create entry activity-->
+    <string name="name">Name</string>
+    <string name="entry_title">Title</string>
+    <string name="user">Username</string>
+    <string name="password">Password</string>
+    <string name="save_the_entry">Save Entry</string>
+    <string name="title_activity_my_passwords">My_Passwords</string>
+    <string name="copyUser">Copy Username</string>
+    <string name="copyPass">Copy Password</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="requireLogin">Require Login</string>
+    <string name="requireLoginKey">loginKey</string>
+    <string name="attachment_title">Require Login Page</string>
+    <string name="attachment_summary_on">Require a password to login when you enter the app.
+    </string>
+    <string name="attachment_summary_off">No password required to login</string>
+    <string name="title_activity_set_login_password">SetLoginPassword</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="set_password_title">SET PIN</string>
+    <string name="new_password_text">NEW PASSWORD</string>
+    <string name="confirm_password_title">CONFIRM PASSWORD</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login">LOGIN</string>
+    <string name="passwordCapital">PASSWORD</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="logout">Logout</string>
+    <string name="PIN">PIN</string>
 
 
 </resources>

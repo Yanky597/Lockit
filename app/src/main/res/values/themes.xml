@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
-        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorOnPrimary">@color/secondaryTextColor</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
@@ -14,12 +14,56 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.Lockit.NoActionBar.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.MinWidth">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/secondaryColor</item>
+
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/primaryDarkColor</item>
+
+        <item name="colorAccent">@color/secondaryColor</item>
+
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/secondaryDarkColor
+        </item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/secondaryDarkColor
+        </item>
+    </style>
+
+    <style name="Theme.Lockit.NoActionBar.SplashScreenTheme">
+        <item name="iconTint">@color/secondaryColor</item>
+        <item name="android:background">@mipmap/ic_launcher_round</item>
+    </style>
+
+
     <style name="Theme.Lockit.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+
     </style>
 
-    <style name="Theme.Lockit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Lockit.MainMenu">
+        <item name="colorOnPrimary">@color/secondaryColor</item>
+    </style>
 
-    <style name="Theme.Lockit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.Lockit.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
+        <item name="colorOnBackground">@color/primaryColor</item>
+    </style>
+
+
+    <!--    <style name="Theme.Lockit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+    <style name="Theme.Lockit.PopupOverlay">
+        <item name="android:textColor">@color/secondaryColor</item>
+    </style>
+    <style name="Theme.Lockit.ChangeColorOfEditText">
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="colorControlActivated">#FFffffff</item>
+    </style>
+
 </resources>

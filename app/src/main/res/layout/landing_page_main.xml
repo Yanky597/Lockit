@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
+    android:background="@color/primaryDarkColor"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -13,8 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:textSize="40sp"
-        android:text="@string/welcome"
+        android:textSize="60sp"
+        android:text="@string/app_name"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/primaryDarkColor"
+        android:backgroundTint="@color/primaryColor"
+        android:textColor="@color/secondaryTextColor"
         android:padding="@dimen/button_text_padding"
         android:text="@string/gen_password"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,13 +40,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/button_text_padding"
-        android:backgroundTint="@color/primaryDarkColor"
+        android:backgroundTint="@color/primaryColor"
         android:text="@string/my_passwords"
+        android:textColor="@color/secondaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gen_pass_button"
         app:layout_constraintVertical_bias="0.20999998" />
 
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:textColor="@color/primaryDarkColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
