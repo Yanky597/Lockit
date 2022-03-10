@@ -43,7 +43,7 @@
     <style name="Theme.Lockit.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorOnPrimary">@color/secondaryColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
 
     </style>
 
@@ -52,14 +52,18 @@
     </style>
 
     <style name="Theme.Lockit.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark">
-        <item name="colorOnSecondary">@color/secondaryColor</item>
-        <item name="colorOnBackground">@color/secondaryColor</item>
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
+        <item name="colorOnBackground">@color/primaryColor</item>
     </style>
 
 
     <!--    <style name="Theme.Lockit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
     <style name="Theme.Lockit.PopupOverlay">
         <item name="android:textColor">@color/secondaryColor</item>
+    </style>
+    <style name="Theme.Lockit.ChangeColorOfEditText">
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="colorControlActivated">#FFffffff</item>
     </style>
 
 </resources>

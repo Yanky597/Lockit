@@ -33,7 +33,7 @@ public class EdityEntry extends AppCompatActivity {
     int currentPosition;
     public Entry entry;
     String Title, Username, Password;
-    ImageButton mbackButton, mCopyTitle,mCopyUser, mCopyPass, mDeleteEntry, mSaveEdit;
+    ImageButton mbackButton, mCopyTitle,mCopyUser, mCopyPass, mDeleteEntry, mSaveEdit, msharePassword;
     EditText mEditTitle, mEditUser, mEditPassword;
     public Entries mPassWordList;
 //    private final String mMyList = "MYLIST";
@@ -62,6 +62,7 @@ public class EdityEntry extends AppCompatActivity {
         updateEntry();
         deleteAnEntry();
         goBacToPasswordListButton();
+        shareDetails();
 
     }
 
@@ -101,6 +102,7 @@ public class EdityEntry extends AppCompatActivity {
         mEditTitle = binding.editEntryContent.editTitle;
         mEditUser = binding.editEntryContent.editUser;
         mEditPassword = binding.editEntryContent.editPass;
+        msharePassword = binding.editEntryContent.sharePassword;
     }
 
     private void goBacToPasswordListButton(){
@@ -196,7 +198,27 @@ public class EdityEntry extends AppCompatActivity {
         });
     }
 
+
+
+    public void shareDetails(){
+        msharePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "TITLE : " + mEditTitle.getText().toString()
+                        + "\nUSERNAME : " + mEditUser.getText().toString()
+                        + "\nPASSWORD: " + mEditPassword.getText().toString() );
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+            }
+        });
+    }
+
     public void setupCopyContentButtons(){
+
         mCopyTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

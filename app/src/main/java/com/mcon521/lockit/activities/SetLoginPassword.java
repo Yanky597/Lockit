@@ -79,6 +79,7 @@ public class SetLoginPassword extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //TODO this has to be updated to encrypt the users pin
     private void setLoginPasswordInsharedPreferences(Context context, String password, String placeToSave) throws GeneralSecurityException, IOException {
 //        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
 //

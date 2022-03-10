@@ -10,6 +10,7 @@
 
     <TextView
         android:textSize="@dimen/headingTextSize"
+        android:textColor="@color/primaryTextColor"
         android:id="@+id/create_entry_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,20 +24,23 @@
         android:id="@+id/createEntryNameEditTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/secondaryColor"
+        android:textColor="@color/primaryTextColor"
         android:layout_marginTop="44dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/primaryLightColor"
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_entry_name_text_view" />
 
     <TextView
-        android:textSize="@dimen/headingTextSize"
         android:id="@+id/create_entry_user_text_view"
+        android:textSize="@dimen/headingTextSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_create_entry"
         android:gravity="center_horizontal"
+        android:textColor="@color/primaryTextColor"
         android:text="@string/user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,26 +48,29 @@
 
     <EditText
         android:id="@+id/user"
-        android:textColor="@color/secondaryColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_create_entry"
+        android:layout_margin="20dp"
+        android:textSize="@dimen/button_text_padding"
+        android:backgroundTint="@color/primaryLightColor"
         android:gravity="center_horizontal"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_entry_user_text_view" />
 
     <TextView
-        android:textSize="@dimen/headingTextSize"
         android:id="@+id/create_entry_password_text_view"
+        android:textSize="@dimen/headingTextSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_create_entry"
         android:gravity="center_horizontal"
-        android:text="@string/password"
+        android:textColor="@color/primaryTextColor"
+        android:text="@string/user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user" />
 
@@ -71,9 +78,12 @@
         android:id="@+id/entryPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="@color/secondaryColor"
         android:layout_marginTop="@dimen/margin_top_create_entry"
+        android:layout_margin="20dp"
+        android:textSize="@dimen/button_text_padding"
+        android:backgroundTint="@color/primaryLightColor"
+        android:gravity="center_horizontal"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,12 +94,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/margin_top_create_entry"
+        android:layout_margin="30dp"
+        android:layout_marginTop="60dp"
         android:text="@string/save_the_entry"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entryPass" />
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,9 +30,11 @@ import com.mcon521.lockit.databinding.ActivityMyPasswordsBinding;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.Locale;
 
 public class My_Passwords extends AppCompatActivity implements PasswordAdapater.ItemClickListener {
 
+    private SearchView msearchView;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMyPasswordsBinding binding;
     public Entries mPassWordList;
@@ -54,13 +57,15 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setupBindingAndToolbar();
+        setupBindingAndToolbarAndSearchBar();
 
         setupRecyclerView();
         wireUpTheBottomNavBar();
         setupFabAndGeneratePassword();
+        searchList();
     }
 
+    /*this is where I would setup a preliminary search bar*/
     private void setupFabAndGeneratePassword() {
 
         FloatingActionButton fab = findViewById(R.id.go_to_generate_password_fab);
@@ -69,6 +74,25 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Create_Password.class);
                 startActivity(intent);
+//                setupRecyclerView();
+            }
+        });
+    }
+
+    // returns a search list
+    private void searchList(){
+        msearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener (){
+
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                setupRecyclerView();
+                return false;
             }
         });
     }
@@ -83,6 +107,29 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
             mEmptyList.addEntryToList(placeHolderForEmptyList);
             adapter = new PasswordAdapater(this, mEmptyList.getPasswordList());
         }
+        else if(msearchView.getQuery().length() != 0) {
+
+            Entries filterdList = new Entries();
+
+            for(Entry pass : mPassWordList.getPasswordList()){
+                if(pass.getSite().contains(msearchView.getQuery().toString().toUpperCase(Locale.ROOT))){
+                    filterdList.addEntryToList(pass);
+                }
+            }
+
+            adapter = new PasswordAdapater(this, filterdList.getPasswordList());
+            adapter.setClickListener(this);
+
+            /*
+            * make = new password list;
+            * for i in password list
+            * if the value in the search bar contains(searchBar.text)
+            * add to new password list
+            *
+            *  adapter = new PasswordAdapater(this, new password list);
+            *  adapter.setClickListener(this);
+            * */
+        }
         else{
             adapter = new PasswordAdapater(this, mPassWordList.getPasswordList());
             adapter.setClickListener(this);
@@ -90,11 +137,16 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
         recyclerView.setAdapter(adapter);
     }
 
-    private void setupBindingAndToolbar() {
+
+
+    private void setupBindingAndToolbarAndSearchBar() {
         binding = ActivityMyPasswordsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.passToolbar.toolbar);
+        msearchView = binding.searchView;
     }
+
+
 
 
 

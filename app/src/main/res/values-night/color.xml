@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!--<resources>-->
 
-    <!--TODO set proper colors for night mode-->
-    <color name="primaryColor">#607d8b</color>
-    <color name="primaryLightColor">#8eacbb</color>
-    <color name="primaryDarkColor">#34515e</color>
-    <color name="secondaryColor">#fdaf89</color>
-    <color name="secondaryLightColor">#ffe1b9</color>
-    <color name="secondaryDarkColor">#c77f5b</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#FFFFFF</color>
+<!--    &lt;!&ndash;TODO set proper colors for night mode&ndash;&gt;-->
+<!--    <color name="primaryColor">#607d8b</color>-->
+<!--    <color name="primaryLightColor">#8eacbb</color>-->
+<!--    <color name="primaryDarkColor">#34515e</color>-->
+<!--    <color name="secondaryColor">#fdaf89</color>-->
+<!--    <color name="secondaryLightColor">#ffe1b9</color>-->
+<!--    <color name="secondaryDarkColor">#c77f5b</color>-->
+<!--    <color name="primaryTextColor">#000000</color>-->
+<!--    <color name="secondaryTextColor">#FFFFFF</color>-->
+<!--</resources>-->
+
+    <!--?xml version="1.0" encoding="UTF-8"?-->
+<resources>
+<color name="primaryColor">#1a237e</color>
+<color name="primaryLightColor">#534bae</color>
+<color name="primaryDarkColor">#000051</color>
+<color name="secondaryColor">#1a237e</color>
+<color name="secondaryLightColor">#534bae</color>
+<color name="secondaryDarkColor">#000051</color>
+<color name="primaryTextColor">#ffffff</color>
+<color name="secondaryTextColor">#ffffff</color>
 </resources>
+
 
