@@ -55,6 +55,7 @@
         android:inputType="textPassword"
         android:textAlignment="center"
         android:maxLength="4"
+        android:layout_marginBottom="@dimen/fab_margin"
         android:backgroundTint="@color/primaryTextColor"
         android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,13 +68,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_lock_idle_lock" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/loginPassword"
+        app:srcCompat="@drawable/ic_baseline_lock_open_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
