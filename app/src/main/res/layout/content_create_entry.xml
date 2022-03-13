@@ -70,7 +70,7 @@
         android:layout_marginTop="@dimen/margin_top_create_entry"
         android:gravity="center_horizontal"
         android:textColor="@color/primaryTextColor"
-        android:text="@string/user"
+        android:text="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user" />
@@ -98,6 +98,7 @@
         android:layout_margin="30dp"
         android:layout_marginTop="60dp"
         android:text="@string/save_the_entry"
+        android:backgroundTint="@color/primaryDarkColor"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
