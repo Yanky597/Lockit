@@ -8,5 +8,8 @@ The app allows you to generate "Strong" passwords as well as store them locally 
 I don't claim that this is a secure app, however I have been working 
 to gradually make it more secure while learning some best practices for android security along the way.
 
-### Application Code can be found
->[Here](https://github.com/Yanky597/Lockit/tree/master/app/src/main/java/com/mcon521/lockit)
+### Application Logic can be found
+>[MVC](https://github.com/Yanky597/Lockit/tree/master/app/src/main/java/com/mcon521/lockit)
+
+### Design work can be found 
+>[DESIGN](https://github.com/Yanky597/Lockit/tree/master/app/src/main/res)
