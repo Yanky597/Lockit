@@ -1,5 +1,4 @@
 # Lockit
-termProject
 
 Lockit is an android app I created to store passwords locally on my phone. 
 I initially created it for a semester project for an android development course at college. \
