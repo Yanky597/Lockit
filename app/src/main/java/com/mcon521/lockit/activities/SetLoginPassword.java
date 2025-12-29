@@ -9,7 +9,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.preference.PreferenceManager;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.mcon521.lockit.databinding.ActivitySetLoginPasswordBinding;
@@ -41,16 +42,13 @@ public class SetLoginPassword extends AppCompatActivity {
     }
 
     private void setupFab()  {
-        binding.setContentSetLoginPassword.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    createNewPassword(view);
-                } catch (GeneralSecurityException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        binding.setContentSetLoginPassword.fab.setOnClickListener(view -> {
+            try {
+                createNewPassword(view);
+            } catch (GeneralSecurityException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
@@ -81,28 +79,27 @@ public class SetLoginPassword extends AppCompatActivity {
 
     //TODO this has to be updated to encrypt the users pin
     private void setLoginPasswordInsharedPreferences(Context context, String password, String placeToSave) throws GeneralSecurityException, IOException {
-//        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-//
-//
-//        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-//                placeToSave,
-//                masterKeyAlias,
-//                context,
-//                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-//                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-//        );
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                placeToSave,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
 
         // use the shared preferences and editor as you normally would
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
 //        SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
 // Storing the key and its value as the data fetched from edittext
         editor.putString(placeToSave, password);
         editor.putBoolean(mISLOGGEDIN, true);
-        editor.commit();
+        editor.apply();
     }
 
 }

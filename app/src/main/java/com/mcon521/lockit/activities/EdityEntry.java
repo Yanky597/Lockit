@@ -167,34 +167,29 @@ public class EdityEntry extends AppCompatActivity {
 
 
     private void updateEntry(){
-        mSaveEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(EdityEntry.this);
-                        builder
-                        .setTitle(Title)
-                        .setMessage("Are you sure you want to overwrite the information for " + Title)
+        mSaveEdit.setOnClickListener(view -> {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(EdityEntry.this);
+                    builder
+                    .setTitle(Title)
+                    .setMessage("Are you sure you want to overwrite the information for " + Title)
 
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    checkTextFields();
-                                } catch (GeneralSecurityException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                checkTextFields();
+                            } catch (GeneralSecurityException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setIcon(R.drawable.ic_baseline_lock_24)
-                        .show();
-            }
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setIcon(R.drawable.ic_baseline_lock_24)
+                    .show();
         });
     }
 
@@ -228,22 +223,16 @@ public class EdityEntry extends AppCompatActivity {
             }
         });
 
-        mCopyUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setupClipboard(mEditUser.getText().toString());
-                Snackbar.make(view, "Copied username to clipboard", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-            }
+        mCopyUser.setOnClickListener(view -> {
+            setupClipboard(mEditUser.getText().toString());
+            Snackbar.make(view, "Copied username to clipboard", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
         });
 
-        mCopyPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setupClipboard(mEditPassword.getText().toString());
-                Snackbar.make(view, "Copied password to clipboard", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-            }
+        mCopyPass.setOnClickListener(view -> {
+            setupClipboard(mEditPassword.getText().toString());
+            Snackbar.make(view, "Copied password to clipboard", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
         });
 
     }

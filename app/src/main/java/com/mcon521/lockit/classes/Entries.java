@@ -10,7 +10,6 @@ public class Entries {
 
     protected ArrayList<Entry> passwordList = new ArrayList<Entry>();
 
-
     public ArrayList<Entry> getPasswordList(){
         return passwordList;
     }

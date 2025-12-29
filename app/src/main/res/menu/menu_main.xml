@@ -4,8 +4,15 @@
     tools:context="com.mcon521.lockit.MainActivity">
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/export"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_save_24"
+        android:iconTint="@color/secondaryLightColor"
+        android:title="@string/export"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="200"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

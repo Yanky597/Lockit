@@ -15,7 +15,7 @@
         <entry key="app/src/main/res/layout/bottom_bar_nav.xml" value="0.1634963768115942" />
         <entry key="app/src/main/res/layout/content_create_entry.xml" value="0.21633451157721925" />
         <entry key="app/src/main/res/layout/content_login.xml" value="0.2637847679248754" />
-        <entry key="app/src/main/res/layout/content_my_passwords.xml" value="0.18704710144927536" />
+        <entry key="app/src/main/res/layout/content_my_passwords.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_set_login_password.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/create_entry_toolbar.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/create_password_content.xml" value="0.18704710144927536" />
@@ -29,7 +29,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -8,6 +8,9 @@ import android.os.Handler;
 import com.mcon521.lockit.R;
 import com.mcon521.lockit.lib.Utils;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class SplashActivity extends Activity {
     private static boolean splashLoaded = false;
 
@@ -15,7 +18,13 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.setLoginOnOffFromPreferenceValue(getApplicationContext(), getString(R.string.requireLoginKey));
+        try {
+            Utils.setLoginOnOffFromPreferenceValue(getApplicationContext(), getString(R.string.requireLoginKey));
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         splashScreenRouter();
 
     }

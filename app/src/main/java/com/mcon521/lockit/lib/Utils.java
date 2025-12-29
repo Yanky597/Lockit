@@ -5,63 +5,120 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.preference.PreferenceManager;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.mcon521.lockit.R;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class Utils {
 
-    public static final String mLOGINPASSWORD =  "LoginPassword";
-    public static final String mISLOGGEDIN =  "IsLoggedIn";
+    public static final String mLOGINPASSWORD = "LoginPassword";
+    public static final String mISLOGGEDIN = "IsLoggedIn";
+    public static final String mLOGIN = "LOGIN";
 
     public static final boolean REQUIRE_LOGIN_YES = true;
 
     public static final boolean REQUIRE_LOGIN_NO = false;
 
-    public static void setLoginOnOffFromPreferenceValue(Context context, String loginMode) {
+    public static void setLoginOnOffFromPreferenceValue(Context context, String loginMode) throws GeneralSecurityException, IOException {
         setRequireLogin(doesRequireLogin(context, loginMode));
     }
 
     public static boolean setRequireLogin(boolean setToOn) {
-        boolean onMode  = setToOn ? REQUIRE_LOGIN_YES : REQUIRE_LOGIN_NO;
+        boolean onMode = setToOn ? REQUIRE_LOGIN_YES : REQUIRE_LOGIN_NO;
         return onMode;
     }
 
-    public static boolean doesRequireLogin(Context context, String loginMode) {
-        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor myEdit = loginPreference.edit();
-        if(loginPreference.contains(mLOGINPASSWORD) && loginPreference.contains(mISLOGGEDIN)){
-            return loginPreference.getBoolean(loginMode, false);
-        }
-        else{
+    public static boolean doesRequireLogin(Context context, String loginMode) throws GeneralSecurityException, IOException {
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mLOGIN,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+        SharedPreferences.Editor myEdit = preferences.edit();
+        if (preferences.contains(mISLOGGEDIN)) {
+            return preferences.getBoolean(mISLOGGEDIN, false);
+        } else {
             myEdit.putString(mLOGINPASSWORD, "");
             myEdit.putBoolean(mISLOGGEDIN, false);
-            return loginPreference.getBoolean(loginMode, false);
+            myEdit.apply();
+            return false;
         }
     }
 
-    public static void LoggedStatusTrue(Context context){
-        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor myEdit = loginPreference.edit();
+    public static void LoggedStatusTrue(Context context) throws GeneralSecurityException, IOException {
+
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mLOGIN,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+//        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor myEdit = preferences.edit();
         myEdit.putBoolean(mISLOGGEDIN, true);
         myEdit.apply();
     }
 
-    public static void setToLoggedOut(Context context){
-        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor myEdit = loginPreference.edit();
+    public static void setToLoggedOut(Context context) throws GeneralSecurityException, IOException {
+
+//        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor myEdit = loginPreference.edit();
+//        myEdit.putBoolean(mISLOGGEDIN, false);
+//        myEdit.apply();
+
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mLOGIN,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
+        SharedPreferences.Editor myEdit = preferences.edit();
         myEdit.putBoolean(mISLOGGEDIN, false);
         myEdit.apply();
     }
 
-    public static boolean getLoginStatus(Context context){
-        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        return loginPreference.getBoolean(mISLOGGEDIN, false);
+    public static boolean getLoginStatus(Context context) throws GeneralSecurityException, IOException {
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+        SharedPreferences preferences = EncryptedSharedPreferences.create(
+                mLOGIN,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
+//        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(mISLOGGEDIN, false);
     }
 
 
-    public static String passwordIsSet(Context context){
-        SharedPreferences loginPreference = PreferenceManager.getDefaultSharedPreferences(context);
+    public static String passwordIsSet(Context context) throws GeneralSecurityException, IOException {
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+        SharedPreferences loginPreference = EncryptedSharedPreferences.create(
+                mLOGIN,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
         return loginPreference.getString(mLOGINPASSWORD, "");
     }
 

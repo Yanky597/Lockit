@@ -5,13 +5,19 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,8 +33,11 @@ import com.mcon521.lockit.classes.Entry;
 import com.mcon521.lockit.classes.PasswordAdapater;
 import com.mcon521.lockit.databinding.ActivityMyPasswordsBinding;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
@@ -147,14 +156,10 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
     }
 
 
-
-
-
     public void getPasswordListFromSharedPreferences() throws GeneralSecurityException, IOException {
 //        SharedPreferences preferences = getSharedPreferences(mKeyPrefsName, MODE_PRIVATE);
 
         String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-
 
         SharedPreferences preferences = EncryptedSharedPreferences.create(
                 mKeyPrefsName,
@@ -232,6 +237,67 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
 
     }
 
+    public void exportClicked() {
+        String Title = "Export";
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+                .setTitle(Title)
+                .setMessage(" WARNING Are you sure you want to export your passwords?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    try {
+                        getPasswordListFromSharedPreferences();
+                        Gson gson = new Gson();
+                        String jsonResult = gson.toJson(mPassWordList);
+                        sendData(jsonResult);
+                    } catch (GeneralSecurityException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setIcon(R.drawable.ic_baseline_lock_24)
+                .show();
+
+
+    }
+
+    private void sendData(String result) {
+        try {
+            // Write JSON to a file in cache directory
+            File cacheDir = getCacheDir();
+            File exportFile = new File(cacheDir, "lockit_export.json");
+            FileWriter writer = new FileWriter(exportFile);
+            writer.write(result);
+            writer.close();
+
+            // Get URI via FileProvider
+            Uri fileUri = FileProvider.getUriForFile(this,
+                    getPackageName() + ".fileprovider", exportFile);
+
+            // Share the file
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            sendIntent.setType("application/json");
+            sendIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            Intent shareIntent = Intent.createChooser(sendIntent, "Export Passwords");
+            startActivity(shareIntent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Export failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
@@ -240,11 +306,22 @@ public class My_Passwords extends AppCompatActivity implements PasswordAdapater.
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        } else
-            return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.export:
+                exportClicked();
+                return true;
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 }

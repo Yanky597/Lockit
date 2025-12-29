@@ -16,6 +16,9 @@ import com.mcon521.lockit.R;
 import com.mcon521.lockit.databinding.ActivityMainBinding;
 import com.mcon521.lockit.lib.Utils;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button mPasswordGenerator, mMyPasswords ,mLogout;
@@ -28,7 +31,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sendYouOnYourWay();
+        try {
+            sendYouOnYourWay();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setupBindingAndToolbar();
         setupButtonsAndHandleButtonClicks();
     }
@@ -53,10 +62,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mLogout.setOnClickListener(view -> {
+            try {
                 logOut();
+            } catch (GeneralSecurityException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
@@ -66,14 +78,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.includeToolbar.toolbar);
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.removeItem(R.id.export);
         return true;
     }
 
@@ -110,20 +121,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        sendYouOnYourWay();
+        try {
+            sendYouOnYourWay();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(!Utils.getLoginStatus(getApplicationContext())){
-            sendYouOnYourWay();
+        try {
+            if(!Utils.getLoginStatus(getApplicationContext())){
+                sendYouOnYourWay();
+            }
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
 
-    private void sendYouOnYourWay() {
-
+    private void sendYouOnYourWay() throws GeneralSecurityException, IOException {
+//        Toast.makeText(this, String.valueOf(Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))), Toast.LENGTH_SHORT).show();
         if(Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))
                 && !Utils.getLoginStatus(getApplicationContext()) && Utils.passwordIsSet(getApplicationContext()).length() == 0 )
         {
@@ -133,16 +156,17 @@ public class MainActivity extends AppCompatActivity {
                 && !Utils.getLoginStatus(getApplicationContext()) && Utils.passwordIsSet(getApplicationContext()).length() > 0 )){
             goToLogin();
         }
-
     }
 
-    private void logOut(){
+    private void logOut() throws GeneralSecurityException, IOException {
+//        Utils.setRequireLogin(true);
         if(Utils.getLoginStatus(this) && Utils.doesRequireLogin(getApplicationContext(), getString(R.string.requireLoginKey))){
             Utils.setToLoggedOut(this);
 //            finish();
             Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show();
             goToLogin();
         }
+        Toast.makeText(this, String.valueOf(Utils.getLoginStatus(getApplicationContext())), Toast.LENGTH_SHORT).show();
     }
 
 
